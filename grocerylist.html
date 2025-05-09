@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="groceryApp">
+<head>
+  <title>Grocery List (AngularJS)</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="GroceryController">
+  <div class="container mt-5">
+    <h2 class="mb-4">Grocery List (AngularJS)</h2>
+    <div class="form-inline mb-3">
+      <input type="text" ng-model="item" class="form-control mr-2" placeholder="Enter grocery item">
+      <button class="btn btn-primary" ng-click="addItem()">Add</button>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="grocery in groceries">
+        {{grocery}}
+        <button class="btn btn-danger btn-sm" ng-click="removeItem($index)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    angular.module('groceryApp', []).controller('GroceryController', function($scope) {
+      $scope.groceries = ['Milk', 'Bread', 'Eggs'];
+      $scope.addItem = function() {
+        if ($scope.item) {
+          $scope.groceries.push($scope.item);
+          $scope.item = '';
+        }
+      };
+      $scope.removeItem = function(index) {
+        $scope.groceries.splice(index, 1);
+      };
+    });
+  </script>
+</body>
+</html>
